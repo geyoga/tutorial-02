@@ -41,13 +41,39 @@ public class PageController {
 		
 		int IntNumber1 = Integer.parseInt(number1);
 		int IntNumber2 = Integer.parseInt(number2);
+		String value = "";
+		String[] angkaSatuan = {"nol","satu","dua","tiga","empat","lima","enam","tujuh","delapan","sembilan"};
+		String[] angkaBelasan = {"sepuluh","sebelas","dua belas","tiga belas","empat belas","lima belas","enam belas","tujuh belas","delapan belas","sembilan belas"};
+		
 		
 		int result = IntNumber1 + IntNumber2;
+		
+		if (result < 10) {
+			value = angkaSatuan[result];
+		}
+		else if (result < 20) {
+			int temp = result;
+			temp = temp - 10;
+			value = angkaBelasan[temp];
+			
+		}
+		else if (result < 100) {
+			int temp = result / 10;
+			int mod = result % 10;
+			if (mod == 0) {
+				value = angkaSatuan[temp] + " puluh";
+			}else {
+				value = angkaSatuan[temp] + " puluh " + angkaSatuan[mod];
+			}
+			
+		}else {
+			value = "Value out of Range";
+		}
 		
 		model.addAttribute("number1", IntNumber1);
 		model.addAttribute("number2", IntNumber2);
 		model.addAttribute("result", result);
-		
+		model.addAttribute("word",value);
 		
 		return "calculate";
 		
